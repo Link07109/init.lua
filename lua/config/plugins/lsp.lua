@@ -1,17 +1,36 @@
 return {
   {
-	"neovim/nvim-lspconfig",
-	config = function()
-	  require("lspconfig").ols.setup {
-		init_options = {
-		  collections = {
-			{ name = "core", path = vim.fn.expand('$HOME/Documents/Github/Odin/core') },
-			{ name = "vendor", path = vim.fn.expand('$HOME/Documents/Github/Odin/vendor') },
-			{ name = "shared", path = vim.fn.expand('$HOME/Documents/Github/Odin') }
-		  },
-		},
-	  }
-	  require("lspconfig").lua_ls.setup {}
-	end
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      {
+        "folke/lazydev.nvim",
+        opts = {
+          library = {
+            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+          },
+        },
+      },
+    },
+    config = function()
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
+      require("lspconfig").lua_ls.setup { capabilities = capabilities }
+      require("lspconfig").ols.setup { capabilities = capabilities }
+
+      vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if not client then return end
+
+          if client.supports_method('textDocument/formatting') then
+            vim.api.nvim_create_autocmd('BufWritePre', {
+              buffer = args.buf,
+              callback = function()
+                vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+              end,
+            })
+          end
+        end,
+      })
+    end,
   }
 }
