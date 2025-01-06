@@ -27,33 +27,47 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.expandtab = true
-vim.opt.smarttab = true
-vim.opt.autoindent = true
 vim.opt.smartindent = true
-vim.opt.backspace = { "start", "eol", "indent" }
+-- vim.opt.backspace = { "start", "eol", "indent" }
 
-vim.opt.hlsearch = true
-vim.opt.showcmd = true
+vim.opt.hlsearch = false -- true
+vim.opt.incsearch = true
 vim.opt.scrolloff = 8
 vim.opt.ignorecase = true
+
+vim.opt.guicursor = ""
+vim.opt.wrap = false
+vim.opt.updatetime = 50
+vim.opt.clipboard = "unnamedplus"
 
 vim.opt.wildignore:append("{*/node_modules/*}")
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.splitkeep = "cursor"
 
-vim.opt.wrap = false
-vim.opt.updatetime = 50
-vim.opt.clipboard = "unnamedplus"
 
 -- key binds
 vim.keymap.set("n", "x", '"_x')
+vim.keymap.set("x", "<leader>p", '"_dP')
+vim.keymap.set("n", "<leader>y", '"+y')
+vim.keymap.set("n", "Q", "<nop>")
 
-vim.keymap.set('n', '<space>grn', vim.lsp.buf.rename)
-vim.keymap.set('n', '<space>gra', vim.lsp.buf.code_action)
-vim.keymap.set('n', '<space>grr', vim.lsp.buf.references)
+vim.keymap.set('n', '<leader>grn', vim.lsp.buf.rename)
+vim.keymap.set('n', '<leader>gra', vim.lsp.buf.code_action)
+vim.keymap.set('n', '<leader>grr', vim.lsp.buf.references)
+vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition)
 
-vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>")
-vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>")
+-- quickfix navi
+vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>zz")
+-- prime
+vim.keymap.set("n", "<leader>j", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "-", "<cmd>Oil<CR>")
+
+-- keeps cursor in middle of screen
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")

@@ -33,10 +33,9 @@ return {
           bg = "#0c0b0f",
           func = "#bc96b0",
           keyword = "#787bab",
-          -- string = "#d4bd98",
-          string = "#8a739a",
+          string = "#d4bd98",
           number = "#8f729e",
-          -- type = "#dcaed7",
+          type = "#dcaed7",
         },
       })
     end,
