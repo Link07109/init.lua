@@ -9,11 +9,14 @@ if vim.fn.has("win32") then
     return result:gsub("\\", "/")
   end
 end
+vim.opt.shell = "zsh"
 
 require("config.lazy")
 
-vim.cmd.colorscheme "vague"
--- vim.cmd.colorscheme "rose-pine"
+--vim.cmd.colorscheme "vague"
+vim.cmd.colorscheme "rose-pine"
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 vim.scriptencoding = "utf-8"
 vim.opt.encoding = "utf-8"
@@ -26,8 +29,9 @@ vim.opt.relativenumber = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
-vim.expandtab = true
+vim.opt.expandtab = true
 vim.opt.smartindent = true
+vim.opt.autoindent = true
 -- vim.opt.backspace = { "start", "eol", "indent" }
 
 vim.opt.hlsearch = false -- true
@@ -35,7 +39,7 @@ vim.opt.incsearch = true
 vim.opt.scrolloff = 8
 vim.opt.ignorecase = true
 
-vim.opt.guicursor = ""
+--vim.opt.guicursor = ""
 vim.opt.wrap = false
 vim.opt.updatetime = 50
 vim.opt.clipboard = "unnamedplus"
@@ -56,6 +60,7 @@ vim.keymap.set('n', '<leader>grn', vim.lsp.buf.rename)
 vim.keymap.set('n', '<leader>gra', vim.lsp.buf.code_action)
 vim.keymap.set('n', '<leader>grr', vim.lsp.buf.references)
 vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition)
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 
 -- quickfix navi
 vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>zz")
